@@ -3,7 +3,7 @@ import React from 'react';
 import ProductCard from './ProductCard';
 
 // Receives an array of products as a prop
-function ProductList({ products }) {
+function ProductList({ products }) { /*products is the prop*/
   if (products.length === 0) {
     return <p className="empty-message">No products found matching your criteria.</p>;
   }

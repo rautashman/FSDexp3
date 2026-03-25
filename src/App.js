@@ -1,4 +1,7 @@
 // src/App.js
+//Routing is implemented here
+// /products/:id is the path parameter used here
+// /products?search=phone&category=electronics is the query parameter used here
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar';

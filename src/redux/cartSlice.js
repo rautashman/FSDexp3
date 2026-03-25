@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 // Redux is used here because the cart state needs to be accessed and modified
 // from many different components (NavBar, ProductCard, CartPage).
+// Redux allows any component to access or update this global data.
 const cartSlice = createSlice({
   name: 'cart',
   initialState: [],

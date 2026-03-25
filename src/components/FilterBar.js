@@ -9,7 +9,7 @@ function FilterBar({ initialSearch, initialCategory, onFilterChange }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Pass event handler via props
-    onFilterChange(searchTerm, category);
+    onFilterChange(searchTerm, category); /*useState hook keeps track of these*/
   };
 
   return (
@@ -21,8 +21,8 @@ function FilterBar({ initialSearch, initialCategory, onFilterChange }) {
         onChange={(e) => setSearchTerm(e.target.value)}
         className="filter-input"
       />
-      <select 
-        value={category} 
+      <select
+        value={category}
         onChange={(e) => setCategory(e.target.value)}
         className="filter-select"
       >

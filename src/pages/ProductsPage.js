@@ -22,8 +22,8 @@ function ProductsPage() {
       let result = products;
 
       if (search) {
-        result = result.filter(p => 
-          p.name.toLowerCase().includes(search.toLowerCase()) || 
+        result = result.filter(p =>
+          p.name.toLowerCase().includes(search.toLowerCase()) ||
           p.description.toLowerCase().includes(search.toLowerCase())
         );
       }
@@ -50,11 +50,11 @@ function ProductsPage() {
   return (
     <div className="page products-page">
       <h1>Our Products</h1>
-      
-      <FilterBar 
-        initialSearch={search} 
-        initialCategory={category} 
-        onFilterChange={handleFilterChange} 
+
+      <FilterBar
+        initialSearch={search}
+        initialCategory={category}
+        onFilterChange={handleFilterChange}
       />
 
       {/* Conditional rendering based on state */}

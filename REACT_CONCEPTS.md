@@ -57,3 +57,9 @@ This document explains the core React concepts demonstrated in the **ReactMart**
 - In `src/components/NavBar.js` and systematically throughout the codebase, the `<Link>` component supplied by `react-router-dom` is utilized strictly over traditional native `<a href="...">` anchor tags. 
 - Example: `<Link to="/cart">Cart</Link>`.
 - **Purpose:** It intercepts typical browser navigation actions and handles them locally in JavaScript, providing virtually instantaneous client-rendered transitions between page routes, preserving vital global state contexts (like Redux Cart memory), and ensuring an uncompromised user experience.
+
+## 9. React Hooks
+**Concept:** Hooks are special functions that allow functional components to "hook into" React features like state and lifecycle methods, without needing to write class components.
+**Implementation:**
+- The application heavily relies on built-in React hooks (`useState` for local memory, `useEffect` for simulating network requests on render), React Router hooks (`useParams` to read dynamic URLs, `useSearchParams` to sync filters to URLs, `useLocation` to read active paths), and Redux hooks (`useSelector` to read global state, `useDispatch` to send global actions).
+- **Purpose:** They encapsulate reusable, stateful logic, allowing simple functional components to perform highly complex and interactive tasks in a clean, isolated, and highly readable manner.
