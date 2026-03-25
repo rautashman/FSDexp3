@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/FSDexp3/static/css/main.18219595.css",
+    "main.js": "/FSDexp3/static/js/main.4b49b761.js",
+    "index.html": "/FSDexp3/index.html",
+    "main.18219595.css.map": "/FSDexp3/static/css/main.18219595.css.map",
+    "main.4b49b761.js.map": "/FSDexp3/static/js/main.4b49b761.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.18219595.css",
+    "static/js/main.4b49b761.js"
+  ]
+}
