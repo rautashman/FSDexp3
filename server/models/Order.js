@@ -18,7 +18,7 @@ const orderSchema = new mongoose.Schema(
       type: String, 
       required: true, 
       trim: true,
-      match: [/^[a-zA-Z0-9\s,.\-#/']+$/, 'Address contains invalid characters. Please use only letters, numbers, spaces, commas, periods, hyphens, or forward slashes.']
+      match: [/^[a-zA-Z0-9\s,.\-#/&()'{},;:]+$/, 'Please enter a valid address.']
     },
     items: {
       type: [orderItemSchema],
