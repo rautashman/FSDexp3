@@ -1,0 +1,230 @@
+# React Mart - Full Project Documentation
+
+## 1. Project Overview
+React Mart is a full-stack e-commerce demo application.
+
+The project includes:
+- A React frontend (product browsing, filtering, cart, checkout form)
+- A Node.js + Express backend API
+- MongoDB persistence for checkout orders
+
+Frontend and backend run together in development, and frontend API calls are proxied to the backend.
+
+## 2. Tech Stack
+
+### Frontend
+- React 18
+- React Router DOM 6
+- Redux Toolkit + React Redux
+- CSS (custom styles)
+- Create React App scripts
+
+### Backend
+- Node.js
+- Express
+- Mongoose
+- MongoDB
+- dotenv
+- cors
+- nodemon (dev)
+
+## 3. High-Level Architecture
+1. User adds items to cart in frontend.
+2. User fills checkout form on cart page.
+3. Frontend sends `POST /api/orders` to backend.
+4. Backend validates payload and stores order in MongoDB.
+5. Backend returns success response with `orderId`.
+6. Frontend shows confirmation and clears cart.
+
+## 4. Project Structure
+
+- `src/` - React frontend source
+- `src/components/` - shared UI components
+- `src/pages/` - routed pages (home, products, cart, search, etc.)
+- `src/redux/` - cart state store and slice
+- `src/data/` - sample product data
+- `src/styles/` - application CSS
+- `server/` - Express + MongoDB backend
+- `server/config/` - DB connection setup
+- `server/models/` - Mongoose schemas/models
+- `server/routes/` - API route handlers
+- `public/` - static public assets
+- `build/` - frontend production build output
+
+## 5. Frontend Routes
+Defined in `src/App.js`:
+- `/` - Home page
+- `/products` - Product listing/filtering
+- `/products/:id` - Product details
+- `/cart` - Cart + checkout form
+- `/about` - About page
+- `/search` - Search page
+
+## 6. Backend API
+
+### Base URL (dev)
+- `http://localhost:5000`
+
+### Endpoints
+
+#### `GET /api/health`
+Health check endpoint.
+
+Example response:
+```json
+{
+  "ok": true,
+  "message": "React Mart API is running"
+}
+```
+
+#### `POST /api/orders`
+Creates and stores an order document.
+
+Request body:
+```json
+{
+  "customerName": "Ashman Raut",
+  "email": "ashman@example.com",
+  "address": "Mumbai, India",
+  "items": [
+    {
+      "productId": "1",
+      "name": "Smartphone",
+      "price": 699,
+      "quantity": 1
+    }
+  ],
+  "totalItems": 1,
+  "totalAmount": 699
+}
+```
+
+Success response (`201`):
+```json
+{
+  "message": "Order saved successfully",
+  "orderId": "<mongodb_object_id>"
+}
+```
+
+Validation error (`400`):
+- Missing `customerName`, `email`, or `address`
+- Missing/empty `items`
+
+Server error (`500`):
+- Database or runtime failure
+
+## 7. MongoDB Schema
+Order model (`server/models/Order.js`) includes:
+- `customerName: String (required)`
+- `email: String (required)`
+- `address: String (required)`
+- `items: [{ productId, name, price, quantity }]` (required, non-empty)
+- `totalItems: Number (required)`
+- `totalAmount: Number (required)`
+- `timestamps: true`
+
+## 8. Environment Variables
+Create `server/.env` from `server/.env.example`.
+
+Required:
+- `PORT=5000`
+- `MONGO_URI=mongodb://127.0.0.1:27017/react_mart` (or your MongoDB Atlas URI)
+
+## 9. Setup Instructions
+
+### Prerequisites
+- Node.js (recommended modern LTS)
+- npm
+- MongoDB local instance or MongoDB Atlas
+
+### Install dependencies
+From project root:
+```bash
+npm install
+```
+
+From backend folder:
+```bash
+cd server
+npm install
+cp .env.example .env
+```
+
+Update `server/.env` with valid `MONGO_URI`.
+
+## 10. Run Commands
+
+From project root (`react-mart`):
+
+- Start frontend only:
+```bash
+npm start
+```
+
+- Start backend only (from root via prefix):
+```bash
+npm run server
+```
+
+- Start both frontend and backend together:
+```bash
+npm run dev
+```
+
+- Production frontend build:
+```bash
+npm run build
+```
+
+- Frontend tests:
+```bash
+npm test
+```
+
+Backend direct commands (inside `server/`):
+- `npm run dev`
+- `npm start`
+
+## 11. Frontend-Backend Integration Details
+- Frontend `package.json` includes:
+  - `"proxy": "http://localhost:5000"`
+- Frontend uses relative fetch URL:
+  - `fetch('/api/orders', { ... })`
+- In development, CRA proxy forwards `/api/*` to Express.
+
+## 12. Deployment Notes
+- Frontend is configured with:
+  - `"homepage": "https://rautashman.github.io/FSDexp3"`
+- Existing script:
+  - `npm run deploy` (build + gh-pages)
+
+Important:
+- GitHub Pages deploys frontend static files only.
+- Backend + MongoDB require separate hosting (for example Render, Railway, Cyclic, Fly.io, or an Express-capable server).
+- For production, replace proxy usage with environment-based backend URL logic in frontend.
+
+## 13. Troubleshooting
+- Backend not connecting:
+  - Check `MONGO_URI` in `server/.env`
+  - Ensure MongoDB service/cluster is reachable
+- `POST /api/orders` fails with `400`:
+  - Verify required checkout fields and non-empty cart
+- `POST /api/orders` fails with `500`:
+  - Check backend console logs for DB/runtime errors
+- Frontend cannot hit API in dev:
+  - Ensure backend is running on `PORT=5000`
+  - Run with `npm run dev` from root for easiest setup
+
+## 14. Current Git Ignore Behavior
+`.gitignore` excludes:
+- root `node_modules`
+- `build`/`dist`
+- `server/node_modules`
+- `server/.env`
+
+This keeps local dependencies and secrets out of source control.
+
+## 15. Authoring Notes
+This documentation reflects the current codebase state after integrating checkout form submission with backend order persistence in MongoDB.
