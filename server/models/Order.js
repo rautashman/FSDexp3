@@ -14,7 +14,12 @@ const orderSchema = new mongoose.Schema(
   {
     customerName: { type: String, required: true, trim: true },
     email: { type: String, required: true, trim: true, lowercase: true },
-    address: { type: String, required: true, trim: true },
+    address: { 
+      type: String, 
+      required: true, 
+      trim: true,
+      match: [/^[a-zA-Z0-9\s,.\-#/']+$/, 'Address contains invalid characters. Please use only letters, numbers, spaces, commas, periods, hyphens, or forward slashes.']
+    },
     items: {
       type: [orderItemSchema],
       validate: {
