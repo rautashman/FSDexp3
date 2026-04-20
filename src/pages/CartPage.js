@@ -65,10 +65,19 @@ function CartPage() {
         body: JSON.stringify(payload)
       });
 
-      const data = await response.json();
+      const rawBody = await response.text();
+      let data = {};
+
+      if (rawBody) {
+        try {
+          data = JSON.parse(rawBody);
+        } catch {
+          data = { message: rawBody };
+        }
+      }
 
       if (!response.ok) {
-        throw new Error(data.message || 'Failed to place order');
+        throw new Error(data.message || `Failed to place order (HTTP ${response.status})`);
       }
 
       setSubmitMessage(`Order placed successfully. Order ID: ${data.orderId}`);

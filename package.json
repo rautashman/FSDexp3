@@ -2,7 +2,7 @@
   "name": "react-mart",
   "version": "1.0.0",
   "homepage": "https://rautashman.github.io/FSDexp3",
-  "proxy": "http://localhost:5000",
+  "proxy": "http://localhost:5050",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.0",
